@@ -1,0 +1,25 @@
+label#image{
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px dashed #ddd;
+    background-size: cover;
+    cursor: pointer;
+    width: 238px;
+    height: 190px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+label#image input{
+    display: none;
+}
+
+label#image.has-image{
+    border: 0;
+}
+
+label#image.has-image img{
+    display: none;
+}
