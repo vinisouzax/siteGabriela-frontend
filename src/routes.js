@@ -2,14 +2,14 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Login from './pages/Login'
-import Register from './pages/Register'
-import Subject from './pages/Subject'
+import Register from './pages/Crud/Register'
+import Subject from './pages/Crud/Subject'
 import Main from './pages/Main'
-import Article from './pages/Article'
-import FormArticle from './pages/FormArticle'
-import SubjectView from './pages/SubjectView'
-import ContentSubject from './pages/ContentSubject'
-import ContentView from './pages/ContentView'
+import Article from './pages/Crud/Article'
+import FormArticle from './pages/Crud/FormArticle'
+import SubjectView from './pages/SubPage/SubjectView'
+import ContentSubject from './pages/Crud/ContentSubject'
+import ContentView from './pages/SubPage/ContentView'
 
 
 export default function Routes(){
