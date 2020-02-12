@@ -200,7 +200,7 @@ export default function Subject({ history }){
 
             <Modal show={show} onHide={handleClose} animation={false}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Nova disciplina</Modal.Title>
+                    <Modal.Title>Disciplina</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="form-signin" onSubmit={handleSubmit}>
@@ -208,7 +208,7 @@ export default function Subject({ history }){
                             <input type="text" 
                             id="inputName" 
                             className="form-control" 
-                            placeholder="Nome da disciplina" required autofocus
+                            placeholder="Nome da disciplina" required 
                             value={name}
                             onChange={event => setName(event.target.value)}/>
                             <label htmlFor="inputName"> Nome*</label>

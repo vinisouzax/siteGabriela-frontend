@@ -99,7 +99,7 @@ export default function Register({ history }){
                                         <input type="text" 
                                         id="inputName" 
                                         className="form-control" 
-                                        placeholder="Nome de Usuário" required autofocus
+                                        placeholder="Nome de Usuário" required 
                                         value={name}
                                         onChange={event => setName(event.target.value)}/>
                                         <label htmlFor="inputName"> Nome*</label>
