@@ -237,7 +237,7 @@ export default function Article({ history }){
                     formData.append('pdfs', pdfs[key]);
                 }
     
-                formData.append('subject', response.result[0].subject_id);
+                formData.append('article', response.result[0].article_id);
                 
                 response = await api.post('/pdfs', formData, 
                 {headers: { authorization: auth[0].authorization }});
