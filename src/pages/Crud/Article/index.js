@@ -1,10 +1,11 @@
 import React, { useState, Fragment, useEffect } from 'react';
 import api from '../../../services/api';
 import { MDBDataTable } from 'mdbreact';
-import { FaPlus, FaPen, FaExchangeAlt } from "react-icons/fa";
+import { FaPlus, FaPen, FaExchangeAlt, FaTrash } from "react-icons/fa";
 import { Button, Modal } from 'react-bootstrap';
 import swal from 'sweetalert';
-import {initialize} from '../../../Util';
+import {initialize, validFileType, returnFileSize} from '../../../Util';
+import './styles.css'; 
 
 export default function Article({ history }){
     const [name, setName] = useState('');
@@ -46,6 +47,7 @@ export default function Article({ history }){
                 response = response.data;
     
                 if(response.result.length > 0){
+                    loadContentsUE(response.result[0].subject_id);
                     setName(response.result[0].name);
                     setArticleId(id);
                     setContent(response.result[0].content_id);
@@ -103,7 +105,7 @@ export default function Article({ history }){
 
         async function loadArticles(){
 
-            let response = await api.get('/articles/');
+            let response = await api.get('/articles');
 
             response = response.data;
 
@@ -115,8 +117,8 @@ export default function Article({ history }){
                         subject: response.result[i].subject_name,
                         content: response.result[i].content_name,
                         active: (response.result[i].active) ? 'Ativo' : 'Inativo',
-                        editar: returnEditHtml(response.result[i].content_id),
-                        status: returnDeleteHtml(response.result[i].content_id)
+                        editar: returnEditHtml(response.result[i].article_id),
+                        status: returnDeleteHtml(response.result[i].article_id)
                     });
                 }
                 setArticles(data);
@@ -140,6 +142,25 @@ export default function Article({ history }){
                 setSubjects(data);
             }
             
+        }
+
+        async function loadContentsUE(subject_id){
+            let response = await api.get('/contents');
+            response = response.data;
+            
+            if(response.result.length > 0){
+                let data = [];
+                for(let i = 0; i < response.result.length; i++){
+                    if(response.result[i].active === true && 
+                        response.result[i].subject_id === subject_id){
+                        data.push({
+                            content_id: response.result[i].content_id,
+                            name: response.result[i].name,
+                        });
+                    }
+                }
+                setContents(data);            
+            }  
         }
 
         loadArticles();
@@ -247,6 +268,43 @@ export default function Article({ history }){
             setContents(data);            
         }  
     }
+
+    function updateFiles(files){
+
+        setPdfs(files);
+        const preview = document.querySelector('.preview');
+
+        while(preview.firstChild) {
+            preview.removeChild(preview.firstChild);
+        }
+
+        if(files.length === 0) {
+            const para = document.createElement('p');
+            para.textContent = 'Nenhum arquivo selecionado';
+            preview.appendChild(para);
+        } else {
+            const list = document.createElement('ol');
+            preview.appendChild(list);
+        
+            for(const file of files) {
+                const listItem = document.createElement('li');
+                const para = document.createElement('p');
+                if(validFileType(file)) {
+                    para.textContent = `Arquivo: ${file.name}, Tamanho: ${returnFileSize(file.size)}.`;
+                    //const image = document.createElement('img');
+                    //image.src = URL.createObjectURL(file);
+        
+                    //listItem.appendChild(image);
+                    listItem.appendChild(para);
+                } else {
+                    para.textContent = `Arquivo: ${file.name}: Não é um tipo de arquivo válido. Atualize sua seleção.`;
+                    listItem.appendChild(para);
+                }
+        
+                list.appendChild(listItem);
+            }
+        }
+    }
     
     return (
         <>
@@ -274,7 +332,7 @@ export default function Article({ history }){
                     <Modal.Title>Artigo</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <form className="form-signin" onSubmit={handleSubmit}>
+                    <form className="form-signin formArticle" onSubmit={handleSubmit}>
                         <div className="form-label-group">
                             <input type="text" 
                             id="inputName" 
@@ -322,8 +380,12 @@ export default function Article({ history }){
 
                         </div>
 
-                        <div className="form-group margin">
-                            <input type="file" name="pdfs" id="pdfs" onChange={event => setPdfs(event.target.files)} multiple />
+                        <div className="divPdfs">
+                            <label for="pdfs">Choose images to upload (PNG, JPG)</label>
+                            <input type="file" name="pdfs" id="pdfs" accept=".pdf" onChange={event => updateFiles(event.target.files)} multiple/>
+                        </div>
+                        <div class="preview">
+                            <p>Nenhum arquivo selecionado</p>
                         </div>
 
                         <div id="message" align='center'></div>

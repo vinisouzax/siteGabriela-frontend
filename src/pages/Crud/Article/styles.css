@@ -1,0 +1,45 @@
+.formArticle ol{
+    padding-left: 0;
+}
+
+.formArticle li, .divPdfs > p{
+    background: #eee;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    list-style-type: none;
+    border: 1px solid black;
+}
+
+form img{
+    height: 64px;
+    order: 1;
+}
+
+.formArticle > p{
+    line-height: 32px;
+    padding-left: 10px;
+}
+
+.formArticle .divPdfs label{
+    background-color: #7f9ccb;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px ridge black;
+    font-size: 0.8rem;
+    height: auto;
+}
+
+.formArticle .divPdfs label:hover{
+    background-color: #2d5ba3;
+    color: white;
+}
+
+.formArticle .divPdfs label:active{
+    background-color: #0d3f8f;
+    color: white;
+}
+
+#pdfs{
+    opacity: 0;
+}

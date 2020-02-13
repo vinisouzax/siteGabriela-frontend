@@ -1,5 +1,9 @@
 import jwt_decode from 'jwt-decode';
 
+const fileTypes = [
+    'application/pdf'
+];
+
 export function initialize({history}){
     const authorization = localStorage.getItem('61757468');
 
@@ -17,5 +21,19 @@ export function initialize({history}){
         }
         
         return obj;
+    }
+}
+  
+export function validFileType(file) {
+    return fileTypes.includes(file.type);
+}
+
+export function returnFileSize(number) {
+    if(number < 1024) {
+        return number + 'bytes';
+    } else if(number >= 1024 && number < 1048576) {
+        return (number/1024).toFixed(1) + 'KB';
+    } else if(number >= 1048576) {
+        return (number/1048576).toFixed(1) + 'MB';
     }
 }
