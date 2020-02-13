@@ -11,7 +11,7 @@ export default function Main(){
                         <div className="card card-signin my-5 spacing">
                             <div className="fb-profile">
                                 <img align="left" className="fb-image-lg proportionWallpaper" src={require('../../assets/superficies.png')} alt="Wallpaper"/>
-                                {<img align="left" className="fb-image-profile thumbnail proportionProfile" src={require('../../assets/gabriela.jpeg')} alt="Gabriela Silva"/>}
+                                {/*<img align="left" className="fb-image-profile thumbnail proportionProfile" src={require('../../assets/gabriela.jpeg')} alt="Gabriela Silva"/>*/}
                                 <div className="fb-profile-text">
                                     <h1>Gabriela Silva</h1>
                                     <p>Meu nome é Gabriela, sou licencianda no curso de Licenciatura em Matemática, 

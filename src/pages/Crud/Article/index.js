@@ -241,7 +241,7 @@ export default function Article({ history }){
                 
                 response = await api.post('/pdfs', formData, 
                 {headers: { authorization: auth[0].authorization }});
-    
+                handleClose();
                 swal("Cadastro realizado com sucesso"); 
             }else{
                 document.getElementById("message").innerHTML = "Não foi possível cadastrar!";
