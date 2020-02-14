@@ -4,7 +4,7 @@ import { MDBDataTable } from 'mdbreact';
 import { FaPlus, FaPen, FaExchangeAlt, FaTrash } from "react-icons/fa";
 import { Button, Modal } from 'react-bootstrap';
 import swal from 'sweetalert';
-import {initialize, validFileType, returnFileSize} from '../../../Util';
+import {initialize, validFileType} from '../../../Util';
 import './styles.css'; 
 
 export default function Article({ history }){
@@ -15,12 +15,13 @@ export default function Article({ history }){
     const [subjects, setSubjects] = useState([]);
     const [contents, setContents] = useState([]);
     const [articles, setArticles] = useState([]);
+    const [pdfsBD, setPdfsBD] = useState([]);
     const [show, setShow] = useState(false);
     const [change, setChange] = useState(0);
     const [pdfs, setPdfs] = useState('');
     const submitButton = React.createRef(null);
     
-    const handleShow = () => setShow(true);
+    const handleShow = () => setShow(true); 
     
     const handleClose = () => { 
         setShow(false); 
@@ -28,6 +29,7 @@ export default function Article({ history }){
         setSubject('');
         setContent('');
         setName('');
+        setPdfsBD([]);
     };
 
     useEffect((history) =>{
@@ -52,6 +54,25 @@ export default function Article({ history }){
                     setArticleId(id);
                     setContent(response.result[0].content_id);
                     setSubject(response.result[0].subject_id);
+
+                    response = await api.get(`/pdfs/${id}`);
+
+                    response = response.data;
+
+                    if(response.result.length > 0){
+                        let data = [];
+                        for(let i = 0; i < response.result.length; i++){
+                            data.push({
+                                name: response.result[i].name,
+                                pdf_url: response.result[i].pdf_url,
+                                pdf_id: response.result[i].pdf_id,
+                                article_id: response.result[i].pdf_id,
+                                active: response.result[i].active
+                            });
+                        }
+                        setPdfsBD(data);
+                    }
+
                     setShow(true);
                 }
             }
@@ -217,6 +238,17 @@ export default function Article({ history }){
             response = response.data;
             
             if(response.result.length > 0){
+                let formData = new FormData();
+    
+                for (const key of Object.keys(pdfs)) {
+                    formData.append('pdfs', pdfs[key]);
+                }
+    
+                formData.append('article', response.result[0].article_id);
+                
+                response = await api.post('/pdfs', formData, 
+                {headers: { authorization: auth[0].authorization }});
+
                 handleClose();
                 swal("Edição realizada com sucesso");
                 setChange(change+1);
@@ -271,26 +303,41 @@ export default function Article({ history }){
 
     function updateFiles(files){
 
-        setPdfs(files);
         const preview = document.querySelector('.preview');
 
         while(preview.firstChild) {
             preview.removeChild(preview.firstChild);
         }
 
+        const list = document.createElement('ol');
+        preview.appendChild(list);
+
+        if(article_id !== ''){
+
+            for(const pdfBD of pdfsBD) {
+                const listItem = document.createElement('li');
+                const para = document.createElement('p');
+
+                para.textContent = `Arquivo: ${pdfBD.name}.`;
+                listItem.appendChild(para);
+
+                list.appendChild(listItem);
+            }
+        }
+        
         if(files.length === 0) {
             const para = document.createElement('p');
             para.textContent = 'Nenhum arquivo selecionado';
             preview.appendChild(para);
         } else {
-            const list = document.createElement('ol');
-            preview.appendChild(list);
-        
+
+            setPdfs(files);
+
             for(const file of files) {
                 const listItem = document.createElement('li');
                 const para = document.createElement('p');
                 if(validFileType(file)) {
-                    para.textContent = `Arquivo: ${file.name}, Tamanho: ${returnFileSize(file.size)}.`;
+                    para.textContent = `Arquivo: ${file.name}.`;
                     //const image = document.createElement('img');
                     //image.src = URL.createObjectURL(file);
         
@@ -381,11 +428,19 @@ export default function Article({ history }){
                         </div>
 
                         <div className="divPdfs">
-                            <label for="pdfs">Choose images to upload (PNG, JPG)</label>
+                            <label htmlFor="pdfs">Escolhas os arquivos (PDF)</label>
                             <input type="file" name="pdfs" id="pdfs" accept=".pdf" onChange={event => updateFiles(event.target.files)} multiple/>
                         </div>
-                        <div class="preview">
-                            <p>Nenhum arquivo selecionado</p>
+                        <div className="preview">
+                            <ol>
+                            {
+                            pdfsBD.map(pdfBD => (
+                                <li key={pdfBD.pdf_id} value={pdfBD.pdf_id}>
+                                    <p>{pdfBD.name}</p>
+                                </li>
+                            ))
+                            }
+                            </ol>
                         </div>
 
                         <div id="message" align='center'></div>
@@ -407,4 +462,5 @@ export default function Article({ history }){
         </> 
         
     );
+
 }

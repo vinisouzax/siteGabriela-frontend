@@ -94,7 +94,7 @@ export default function Subject({ history }){
 
         async function loadSubjects(){
 
-            let response = await api.get('/subjects/');
+            let response = await api.get('/subjects');
 
             response = response.data;
 
