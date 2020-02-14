@@ -1,7 +1,7 @@
 import React, { useState, Fragment, useEffect } from 'react';
 import api from '../../../services/api';
 import { MDBDataTable } from 'mdbreact';
-import { FaPlus, FaPen, FaExchangeAlt, FaTrash } from "react-icons/fa";
+import { FaPlus, FaPen, FaExchangeAlt } from "react-icons/fa";
 import { Button, Modal } from 'react-bootstrap';
 import swal from 'sweetalert';
 import {initialize, validFileType} from '../../../Util';

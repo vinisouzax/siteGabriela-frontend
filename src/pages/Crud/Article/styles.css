@@ -8,7 +8,9 @@
     justify-content: space-between;
     margin-bottom: 10px;
     list-style-type: none;
-    border: 1px solid black;
+    padding: 5px;
+    border: 1px solid #007bff;
+    border-radius: 10px;
 }
 
 form img{
@@ -22,12 +24,13 @@ form img{
 }
 
 .formArticle .divPdfs label{
-    background-color: #7f9ccb;
+    background-color: #007bff;
     padding: 5px 10px;
     border-radius: 5px;
     border: 1px ridge black;
     font-size: 0.8rem;
     height: auto;
+    color: white;
 }
 
 .formArticle .divPdfs label:hover{

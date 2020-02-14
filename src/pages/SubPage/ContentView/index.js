@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function ContentView(props){
     const [contents, setContents] = useState([]);
-    const [subject_name, setSubject_name] = useState(0);
+    const [subject_name, setSubject_name] = useState('');
 
     useEffect(() =>{
 
@@ -44,12 +44,12 @@ export default function ContentView(props){
                     {contents.map(content => (
                         <div className="col-lg-3 col-md-4 col-sm-6 mb-4" key={content.content_id}>
                             <div className="card h-100">
-                                <Link to={{ pathname: `/SubjectView`, state: {content: content.content_id} }}>
+                                <Link to={{ pathname: `/ArticleView`, state: {content: content.content_id} }}>
                                         <img className="card-img-top" src={content.image_url} alt={content.name}/>
                                 </Link>
                                 <div className="card-body">
                                     <h4 className="card-title">
-                                        <Link to={{ pathname: `/SubjectView`, state: {content: content.content_id} }}>
+                                        <Link to={{ pathname: `/ArticleView`, state: {content: content.content_id} }}>
                                             {content.name}
                                         </Link>
                                     </h4>
