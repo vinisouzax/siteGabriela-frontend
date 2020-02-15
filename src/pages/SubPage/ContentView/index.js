@@ -40,7 +40,7 @@ export default function ContentView(props){
         <>
             <div className="container">
 
-                <h1 className="my-4 titleContents">Conteúdos de {subject_name}</h1>
+                <h1 className="my-4 titleContents">{subject_name}</h1>
 
                 <div className="row">
                     {contents.map(content => (

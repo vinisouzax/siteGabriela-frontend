@@ -21,8 +21,7 @@ export default function Main(){
                                     <p>Meu nome é Gabriela, sou licencianda no curso de Licenciatura em Matemática, 
                                         pelo IFSULDEMINAS - Campus Passos. O meu site contém pdfs com 
                                         conteúdos, exercícios resolvidos, artigos correlatos das áreas de
-                                        Análise na Reta e R^n, Geometria Diferencial, Geometria Riemanniana, 
-                                        Topologia Diferencial, apresentados de forma didática e de fácil compreensão. <strong>Seja bem-vindo(a)!</strong>
+                                        Análise na Reta e R^n e Geometria Diferencial apresentados de forma didática e de fácil compreensão. <strong>Seja bem-vindo(a)!</strong>
 
                                     </p>
                                 </div>

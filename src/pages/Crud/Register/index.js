@@ -22,7 +22,7 @@ export default function Register({ history }){
             setAuth(authorization);
 
             if(!authorization){
-                history.push('/Login');
+                //history.push('/Login');
             }else{
                 let auth_decode = jwt_decode(authorization);
 

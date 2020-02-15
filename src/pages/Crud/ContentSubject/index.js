@@ -27,6 +27,7 @@ export default function CSubject({ history }){
         setContentId(''); 
         setSubject('')
         setName('');
+        setPreview('');
     };
     
     useMemo(() => {
