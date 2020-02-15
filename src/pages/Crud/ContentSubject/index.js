@@ -35,6 +35,7 @@ export default function CSubject({ history }){
     }, [image]);
 
     useEffect((history) =>{
+        document.getElementById("loader").style.display = "block";
         let auth = initialize({history});
 
         async function edit(event, id) {
@@ -125,6 +126,8 @@ export default function CSubject({ history }){
                 }
                 setContents(data);
             }
+
+            document.getElementById("loader").style.display = "none";
         }
 
         async function loadSubjects(){

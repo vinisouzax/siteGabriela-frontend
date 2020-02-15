@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import api from '../../../services/api';
+import { FaFilePdf, FaUserAlt } from "react-icons/fa";
 import './styles.css'
 
 export default function ArticleView(props){
@@ -7,6 +8,7 @@ export default function ArticleView(props){
     const [articles, setArticles] = useState([]);
 
     useEffect(() =>{
+        document.getElementById("loader").style.display = "block";
 
         async function loadArticles(){
             let response = await api.get('/articles');
@@ -17,17 +19,30 @@ export default function ArticleView(props){
                 for(let i = 0; i < response.result.length; i++){
                     if(response.result[i].active === true && 
                         response.result[i].content_id === props.location.state.content){
+
+                        let id = response.result[i].article_id;
+                        let response_pdf = await api.get(`/pdfs/${id}`);
+
+                        response_pdf = response_pdf.data;
+
+                        let data_pdf = [];
+                        if(response_pdf.result.length > 0){
+                            data_pdf = response_pdf.result;
+                        }
+
                         data.push({
                             article_id: response.result[i].article_id,
-                            name: response.result[i].name
+                            name: response.result[i].name,
+                            pdfs: data_pdf
                         });
                     }
                 }
                 setArticles(data);
             }
+
+            document.getElementById("loader").style.display = "none";
             
         }
-
         loadArticles();
  
     }, [props]);
@@ -40,24 +55,26 @@ export default function ArticleView(props){
                         <div className="span12">
                             <div className="row">
                                 <div className="span8">
-                                    <h4><strong><a href="/#">{article.name}</a></strong></h4>
+                                    <h4 className="articleTitle">
+                                        <strong>{article.name.toUpperCase()}</strong>
+                                    </h4>
                                 </div>
                             </div>
                             <div className="row">
-
+                                <ul className="list-group">
+                                    {article.pdfs.map(pdf => (
+                                        <li className="list-group-item pdfItem" key={pdf.pdf_id}>
+                                            <a className="pdfLink" target="_blank" rel="noopener noreferrer" 
+                                            href={pdf.pdf_url}><FaFilePdf /> {pdf.name}</a>
+                                        </li>
+                                    ))}
+                                </ul>
                             </div>
                             <div className="row">
                                 <div className="span8">
                                     <p></p>
-                                    <p>
-                                    <i className="icon-user"></i> by <a href="/#">John</a> 
-                                    | <i className="icon-calendar"></i> Sept 16th, 2012
-                                    | <i className="icon-comment"></i> <a href="/#">3 Comments</a>
-                                    | <i className="icon-share"></i> <a href="/#">39 Shares</a>
-                                    | <i className="icon-tags"></i> Tags : <a href="/#"><span className="label label-info">Snipp</span></a> 
-                                    | <a href="/#"><span className="label label-info">Bootstrap</span></a> 
-                                    | <a href="/#"><span className="label label-info">UI</span></a> 
-                                    | <a href="/#"><span className="label label-info">growth</span></a>
+                                    <p className="details">
+                                    <i className="icon-user"></i> <FaUserAlt /> by Gabriela Silva
                                     </p>
                                 </div>
                             </div>

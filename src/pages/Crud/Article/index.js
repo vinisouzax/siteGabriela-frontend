@@ -33,6 +33,8 @@ export default function Article({ history }){
     };
 
     useEffect((history) =>{
+        document.getElementById("loader").style.display = "block";
+
         let auth = initialize({history});
 
         async function edit(event, id) {
@@ -60,17 +62,7 @@ export default function Article({ history }){
                     response = response.data;
 
                     if(response.result.length > 0){
-                        let data = [];
-                        for(let i = 0; i < response.result.length; i++){
-                            data.push({
-                                name: response.result[i].name,
-                                pdf_url: response.result[i].pdf_url,
-                                pdf_id: response.result[i].pdf_id,
-                                article_id: response.result[i].pdf_id,
-                                active: response.result[i].active
-                            });
-                        }
-                        setPdfsBD(data);
+                        setPdfsBD(response.result);
                     }
 
                     setShow(true);
@@ -144,6 +136,8 @@ export default function Article({ history }){
                 }
                 setArticles(data);
             }
+
+            document.getElementById("loader").style.display = "none";
         }
 
         async function loadSubjects(){
@@ -338,10 +332,6 @@ export default function Article({ history }){
                 const para = document.createElement('p');
                 if(validFileType(file)) {
                     para.textContent = `Arquivo: ${file.name}.`;
-                    //const image = document.createElement('img');
-                    //image.src = URL.createObjectURL(file);
-        
-                    //listItem.appendChild(image);
                     listItem.appendChild(para);
                 } else {
                     para.textContent = `Arquivo: ${file.name}: Não é um tipo de arquivo válido. Atualize sua seleção.`;

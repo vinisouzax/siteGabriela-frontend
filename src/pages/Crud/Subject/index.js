@@ -23,6 +23,8 @@ export default function Subject({ history }){
     };
 
     useEffect((history) =>{
+        document.getElementById("loader").style.display = "block";
+        
         let auth = initialize({history});
 
         async function edit(event, id) {
@@ -110,6 +112,8 @@ export default function Subject({ history }){
                 }
                 setSubjects(data);
             }
+
+            document.getElementById("loader").style.display = "none";
         }
 
         loadSubjects();

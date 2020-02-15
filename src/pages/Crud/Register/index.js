@@ -14,6 +14,8 @@ export default function Register({ history }){
     const [auth, setAuth] = useState('');
     
     useEffect(() =>{
+        document.getElementById("loader").style.display = "block";
+        
         async function loadUser(){
 
             const authorization = localStorage.getItem('61757468');
@@ -37,6 +39,8 @@ export default function Register({ history }){
                     setUserId(response.result[0].user_id);
                 }
             }
+
+            document.getElementById("loader").style.display = "none";
 
         }
 

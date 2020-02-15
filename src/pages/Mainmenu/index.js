@@ -34,21 +34,15 @@ export default function Mainmenu(){
                     <li className="nav-item">
                         <a className="nav-link" href="./">Home <span className="sr-only">(current)</span></a>
                     </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="/#">Cursos</a>
-                    </li>
                     {(permission === 1) ?  
                     <li className="nav-item dropdown">
                         <a className="nav-link dropdown-toggle" href="/#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Gerência
                         </a>
                         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a className="dropdown-item" href="/#">Dashboard</a>
                             <a className="dropdown-item" href="./Subject">Disciplinas</a>
                             <a className="dropdown-item" href="./ContentSubject">Conteúdos Disciplinas</a>
                             <a className="dropdown-item" href="./Article">Artigos</a>
-                            <a className="dropdown-item" href="/#">Cursos</a>
-                            <a className="dropdown-item" href="/#">Usuários</a>
                         </div>
                     </li> : ''
                     }

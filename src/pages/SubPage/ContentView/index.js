@@ -7,6 +7,7 @@ export default function ContentView(props){
     const [subject_name, setSubject_name] = useState('');
 
     useEffect(() =>{
+        document.getElementById("loader").style.display = "block";
 
         async function loadContents(){
             let response = await api.get('/contents');
@@ -28,6 +29,7 @@ export default function ContentView(props){
                 setContents(data);
             }
             
+            document.getElementById("loader").style.display = "none";
         }
 
         loadContents();

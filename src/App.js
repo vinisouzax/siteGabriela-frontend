@@ -30,6 +30,7 @@ function App(){
           </nav>
   
           <div className="container-fluid">
+            <div id="loader" none></div>
             <Routes />
           </div>
         </div>

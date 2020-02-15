@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './main.css';
 
 export default function Main(){
+
+    useEffect(() =>{
+        document.getElementById("loader").style.display = "none";
+    },[])
 
     return (
         <>

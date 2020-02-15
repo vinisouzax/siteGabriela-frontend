@@ -9,3 +9,20 @@
     padding: 10px;
 }
 
+.pdfLink{
+    color: #007bff;
+}
+
+.details{
+    color: #585858;
+}
+
+.articleTitle{
+    color: #DBA901;
+}
+
+.pdfItem:hover, .pdfLink:hover{
+    background-color: #81DAF5;
+    color: #0A122A;
+}
+
