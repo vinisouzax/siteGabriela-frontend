@@ -13,7 +13,9 @@ export function initialize({history}){
         let auth_decode = jwt_decode(authorization);
 
         let obj = [{permission: auth_decode.permission,
-            authorization
+            authorization,
+            user_id: auth_decode.user_id,
+            user_name: auth_decode.user_name
         }];
 
         if(obj[0].permission !== 1){

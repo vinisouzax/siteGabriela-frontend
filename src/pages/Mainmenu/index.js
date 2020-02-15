@@ -27,6 +27,10 @@ export default function Mainmenu(){
         loadUser();
     }, []);
 
+    function logout(event){
+        localStorage.removeItem('61757468');
+    }
+
     return (
         <>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -51,8 +55,13 @@ export default function Mainmenu(){
                         Usuário
                         </a>
                         <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            {(!auth) ? <a className="dropdown-item" href="./Login">Login</a> : 
+                            {(!auth) ? <a className="dropdown-item" href="./Login">Login</a> :
+                            <> 
                                 <a className="dropdown-item" href="./Register">Cadastro</a>
+                                <a className="dropdown-item" 
+                                onClick={event => logout(event)}
+                                href="./">Sair</a>
+                            </>
                             }
                         </div>
                     </li>

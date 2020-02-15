@@ -33,6 +33,7 @@ export default function ArticleView(props){
                         data.push({
                             article_id: response.result[i].article_id,
                             name: response.result[i].name,
+                            user_name: response.result[i].user_name,
                             pdfs: data_pdf
                         });
                     }
@@ -46,6 +47,11 @@ export default function ArticleView(props){
         loadArticles();
  
     }, [props]);
+
+    async function addView(event, pdf){
+        let id = pdf.pdf_id;
+        await api.post(`/pdfs/${id}`, {views: (pdf.views+1)});
+    }
 
     return (
         <>
@@ -64,7 +70,10 @@ export default function ArticleView(props){
                                 <ul className="list-group">
                                     {article.pdfs.map(pdf => (
                                         <li className="list-group-item pdfItem" key={pdf.pdf_id}>
-                                            <a className="pdfLink" target="_blank" rel="noopener noreferrer" 
+                                            <a className="pdfLink" 
+                                            target="_blank" 
+                                            rel="noopener noreferrer" 
+                                            onClick={event => addView(event, pdf)}
                                             href={pdf.pdf_url}><FaFilePdf /> {pdf.name}</a>
                                         </li>
                                     ))}
@@ -74,7 +83,7 @@ export default function ArticleView(props){
                                 <div className="span8">
                                     <p></p>
                                     <p className="details">
-                                    <i className="icon-user"></i> <FaUserAlt /> by Gabriela Silva
+                                    <i className="icon-user"></i> <FaUserAlt /> by {article.user_name}
                                     </p>
                                 </div>
                             </div>

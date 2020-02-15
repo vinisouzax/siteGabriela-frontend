@@ -251,7 +251,7 @@ export default function Article({ history }){
             }
         }else{
             let response = await api.post('/articles', 
-            { name, subject, content } , 
+            { name, subject, content, user: auth[0].user_id } , 
             {headers: { authorization: auth[0].authorization }});
     
             response = response.data;
