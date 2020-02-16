@@ -28,8 +28,7 @@ export default function Main(){
                                 <hr></hr>
                                 <footer class="page-footer font-small blue footerMain">
                                     <div class="footer-copyright text-center py-3">
-                                    Contato: gabrielageodif@gmail.com.
-                                    © {(new Date().getFullYear())} Copyright. Desenvolvido por VgonDev Solutions.
+                                    Contato: gabrielageodif@gmail.com | Desenvolvido por VgonDev Solutions | © {(new Date().getFullYear())} Copyright.
                                     </div>
                                 </footer>                            
                             </div>
