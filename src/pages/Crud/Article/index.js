@@ -234,16 +234,19 @@ export default function Article({ history }){
             response = response.data;
             
             if(response.result.length > 0){
-                let formData = new FormData();
-    
-                for (const key of Object.keys(pdfs)) {
-                    formData.append('pdfs', pdfs[key]);
+
+                if(pdfs.length > 0){
+                    let formData = new FormData();
+
+                    for (const key of Object.keys(pdfs)) {
+                        formData.append('pdfs', pdfs[key]);
+                    }
+        
+                    formData.append('article', response.result[0].article_id);
+                    
+                    response = await api.post('/pdfs', formData, 
+                    {headers: { authorization: auth[0].authorization }});
                 }
-    
-                formData.append('article', response.result[0].article_id);
-                
-                response = await api.post('/pdfs', formData, 
-                {headers: { authorization: auth[0].authorization }});
 
                 handleClose();
                 swal("Edição realizada com sucesso");
@@ -259,16 +262,19 @@ export default function Article({ history }){
             response = response.data;
             
             if(response.result.length > 0){
-                let formData = new FormData();
-    
-                for (const key of Object.keys(pdfs)) {
-                    formData.append('pdfs', pdfs[key]);
-                }
-    
-                formData.append('article', response.result[0].article_id);
                 
-                response = await api.post('/pdfs', formData, 
-                {headers: { authorization: auth[0].authorization }});
+                if(pdfs.length > 0){
+                    let formData = new FormData();
+        
+                    for (const key of Object.keys(pdfs)) {
+                        formData.append('pdfs', pdfs[key]);
+                    }
+        
+                    formData.append('article', response.result[0].article_id);
+                    
+                    response = await api.post('/pdfs', formData, 
+                    {headers: { authorization: auth[0].authorization }});
+                }
                 handleClose();
                 swal("Cadastro realizado com sucesso"); 
                 setChange(change+1);
