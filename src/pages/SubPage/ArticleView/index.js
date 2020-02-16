@@ -74,7 +74,10 @@ export default function ArticleView(props){
                                             target="_blank" 
                                             rel="noopener noreferrer" 
                                             onClick={event => addView(event, pdf)}
-                                            href={pdf.pdf_url}><FaFilePdf /> {pdf.name}</a>
+                                            href={pdf.pdf_url}>
+                                                <FaFilePdf /> {pdf.name}
+                                            </a>
+                                            &nbsp; | {pdf.views} Downloads
                                         </li>
                                     ))}
                                 </ul>
