@@ -1,8 +1,3 @@
-.proportionProfile{
-    width: 200px;
-    height: 220px;
-}
-
 .proportionWallpaper{
     width: 850px;
     height: 280px;
@@ -67,4 +62,10 @@
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+  }
+
+  .logo{
+    width: 120px;
+    height: 80px;
+    border-radius: 10px;
   }

@@ -10,7 +10,11 @@ function App(){
     return (
       <div className={isSBToogled ? "d-flex" : "d-flex toggled"} id="wrapper">
         <div className="bg-light border-right" id="sidebar-wrapper">
-          <div className="sidebar-heading">Gabriela Silva </div>
+          <div className="sidebar-heading" align="center">
+            <img src={require('./assets/logo.png')} 
+            className="logo"
+            alt="logo"/>
+          </div>
           <div className="list-group list-group-flush">
             <Sidebar />
           </div>
