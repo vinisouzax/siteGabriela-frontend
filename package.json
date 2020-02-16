@@ -1,6 +1,9 @@
 {
   "name": "frontend",
   "version": "0.1.0",
+  "engines": {
+    "node": "10.19.0"
+  },
   "private": true,
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^16.0.0",
