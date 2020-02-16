@@ -49,7 +49,9 @@ export default function Register({ history }){
 
     async function handleSubmit(event) {
         event.preventDefault();
-       
+
+        document.getElementById("btn_submit").disabled = true;
+
         if(password === cPassword){
             if(!user_id){
                 let response = await api.post('/users', {name, email, password, permission: 2});
@@ -144,6 +146,7 @@ export default function Register({ history }){
 
                                     { (!user_id) ? 
                                     <button className="btn btn-lg btn-primary btn-block text-uppercase" 
+                                    id="btn_submit"
                                     type="submit">Registrar</button> : 
                                     <button className="btn btn-lg btn-primary btn-block text-uppercase" 
                                     type="submit">Editar</button> }

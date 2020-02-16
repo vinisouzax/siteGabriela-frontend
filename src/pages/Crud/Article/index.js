@@ -222,6 +222,8 @@ export default function Article({ history }){
     async function handleSubmit(event) {
         event.preventDefault();
 
+        document.getElementById("btn_submit").disabled = true;
+
         let auth = initialize({history});
 
         if(article_id !== ''){
@@ -294,6 +296,28 @@ export default function Article({ history }){
             }
             setContents(data);            
         }  
+    }
+
+    async function deletePdf(event, id){
+        let auth = initialize({history});
+
+        let response = await api.delete(`/pdfs/${id}`, 
+        {headers: { authorization: auth[0].authorization }});
+
+        response = response.data;
+
+        if(response.result.length > 0){
+            let li = document.getElementById(`pdfBD${id}`);
+            li.style.display = 'none';
+
+            response = await api.get(`/pdfs/${id}`);
+
+            response = response.data;
+
+            if(response.result.length > 0){
+                setPdfsBD(response.result);
+            }
+        }
     }
 
     function updateFiles(files){
@@ -420,13 +444,18 @@ export default function Article({ history }){
 
                         <div className="divPdfs">
                             <label htmlFor="pdfs">Escolhas os arquivos (PDF)</label>
-                            <input type="file" name="pdfs" id="pdfs" accept=".pdf" onChange={event => updateFiles(event.target.files)} multiple/>
+                            <input type="file" name="pdfs" id="pdfs" accept=".pdf" 
+                            onChange={event => updateFiles(event.target.files)} multiple/>
                         </div>
                         <div className="preview">
                             <ol>
                             {
                             pdfsBD.map(pdfBD => (
-                                <li key={pdfBD.pdf_id} value={pdfBD.pdf_id}>
+                                <li key={pdfBD.pdf_id} 
+                                id={`pdfBD${pdfBD.pdf_id}`}
+                                value={pdfBD.pdf_id}
+                                onClick={event => deletePdf(event, pdfBD.pdf_id)}
+                                >
                                     <p>{pdfBD.name}</p>
                                 </li>
                             ))
@@ -444,7 +473,7 @@ export default function Article({ history }){
                     <Button variant="secondary" onClick={handleClose}>
                         Fechar
                     </Button>
-                    <Button variant="primary" 
+                    <Button variant="primary" id="btn_submit"
                         onClick={e => { submitButton.current.click(); }}>
                         Salvar
                     </Button>

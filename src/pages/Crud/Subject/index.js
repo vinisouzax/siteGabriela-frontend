@@ -149,6 +149,8 @@ export default function Subject({ history }){
     async function handleSubmit(event) {
         event.preventDefault();
 
+        document.getElementById("btn_submit").disabled = true;
+
         let auth = initialize({history});
 
         if(subject_id !== ''){
@@ -228,7 +230,7 @@ export default function Subject({ history }){
                     <Button variant="secondary" onClick={handleClose}>
                         Fechar
                     </Button>
-                    <Button variant="primary" 
+                    <Button variant="primary" id="btn_submit"
                         onClick={e => { submitButton.current.click(); }}>
                         Salvar
                     </Button>
