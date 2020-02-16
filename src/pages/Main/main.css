@@ -1,19 +1,25 @@
-   body
-   {
-       font-family: 'Open Sans', sans-serif;
-   }
+body
+{
+    font-family: 'Open Sans', sans-serif;
+}
+
+.fb-profile img.fb-image-lg{
+    z-index: 0;
+    width: 100%;  
+    margin-bottom: 10px;
+    border-radius: 10px; 
+}
    
-   .fb-profile img.fb-image-lg{
-       z-index: 0;
-       width: 100%;  
-       margin-bottom: 10px;
-       border-radius: 10px; 
-   }
-   
-   .fb-image-profile
-   {
-       z-index: 9;
-       border-radius: 10px; 
-       width: 220px;
-       height: 200px;
-   }
+.fb-image-profile
+{
+    z-index: 9;
+    border-radius: 10px; 
+    width: 220px;
+    height: 200px;
+}
+
+.footerMain{
+    background-color: #0069d9;
+    border-radius: 10px;
+    color: #fff;
+}

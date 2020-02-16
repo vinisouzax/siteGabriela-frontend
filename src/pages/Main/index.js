@@ -25,6 +25,13 @@ export default function Main(){
                                     </p>
                                 </div>
                                 {<img align="center" className="fb-image-profile thumbnail" src={require('../../assets/gabriela.jpg')} alt="Gabriela Silva"/>}                                 
+                                <hr></hr>
+                                <footer class="page-footer font-small blue footerMain">
+                                    <div class="footer-copyright text-center py-3">
+                                    Contato: gabrielageodif@gmail.com.
+                                    © {(new Date().getFullYear())} Copyright.
+                                    </div>
+                                </footer>                            
                             </div>
                         </div>
                     </div>

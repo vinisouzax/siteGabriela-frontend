@@ -37,6 +37,7 @@ function App(){
             <div id="loader" none></div>
             <Routes />
           </div>
+
         </div>
   
       </div>
