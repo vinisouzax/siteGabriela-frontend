@@ -64,7 +64,8 @@ export default function Register({ history }){
             
                     if(response.result.length > 0){
                         localStorage.setItem('61757468', response.result[0].accessToken);
-                        history.push('/')
+                        history.push('/');
+                        window.location.reload();
                     }
                 }else{
                     document.getElementById("message").innerHTML = "Não foi possível cadastrar!";
