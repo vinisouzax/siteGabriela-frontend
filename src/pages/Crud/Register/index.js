@@ -58,8 +58,14 @@ export default function Register({ history }){
                 response = response.data;
                 
                 if(response.result.length > 0){
-                    history.push('/');
                     swal("Cadastro realizado com sucesso");
+                    response = await api.post('/sessions', { email, password });
+                    response = response.data;
+            
+                    if(response.result.length > 0){
+                        localStorage.setItem('61757468', response.result[0].accessToken);
+                        history.push('/')
+                    }
                 }else{
                     document.getElementById("message").innerHTML = "Não foi possível cadastrar!";
                 }
