@@ -37,7 +37,7 @@ export default function CSubject({ history }){
 
     useEffect((history) =>{
         document.getElementById("loader").style.display = "block";
-        let auth = initialize({history});
+        let auth = initialize(history);
 
         async function edit(event, id) {
             event.preventDefault();
@@ -191,7 +191,7 @@ export default function CSubject({ history }){
 
         document.getElementById("btn_submit").disabled = true;
 
-        let auth = initialize({history});
+        let auth = initialize(history);
 
         if(content_id !== ''){
             let formData = new FormData();

@@ -4,7 +4,7 @@ const fileTypes = [
     'application/pdf'
 ];
 
-export function initialize({history}){
+export function initialize(history){
     const authorization = localStorage.getItem('61757468');
 
     if(!authorization){
