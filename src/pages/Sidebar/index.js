@@ -6,6 +6,8 @@ export default function Sidebar(){
     const [subjects, setSubjects] = useState([]);
 
     useEffect(() =>{
+        document.getElementById("loader_middle").style.display = "block";
+
         async function loadSubjects(){
             let response = await api.get('/subjects');
             response = response.data;
@@ -22,7 +24,7 @@ export default function Sidebar(){
                 }
                 setSubjects(data);
             }
-            
+            document.getElementById("loader_middle").style.display = "none";
         }
 
         loadSubjects();
