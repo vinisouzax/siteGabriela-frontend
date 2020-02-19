@@ -16,7 +16,7 @@ function App(){
             alt="logo"/>
           </div>
           <div className="list-group list-group-flush">
-            <div id="loader_middle" none></div>
+            <div id="loader_middle"></div>
             <Sidebar />
           </div>
         </div>
