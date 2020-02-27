@@ -35,7 +35,7 @@ export default function Article({ history }){
     useEffect((history) =>{
         document.getElementById("loader").style.display = "block";
 
-        let auth = initialize({history});
+        let auth = initialize(history);
 
         async function edit(event, id) {
             event.preventDefault();
@@ -224,7 +224,7 @@ export default function Article({ history }){
 
         document.getElementById("btn_submit").disabled = true;
 
-        let auth = initialize({history});
+        let auth = initialize(history);
 
         if(article_id !== ''){
             let response = await api.put(`/articles/${article_id}`, 
@@ -306,7 +306,7 @@ export default function Article({ history }){
     }
 
     async function deletePdf(event, id){
-        let auth = initialize({history});
+        let auth = initialize(history);
 
         let response = await api.delete(`/pdfs/${id}`, 
         {headers: { authorization: auth[0].authorization }});

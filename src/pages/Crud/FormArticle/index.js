@@ -12,7 +12,7 @@ export default function FormArticle({history}){
     const [subject, setSubject] = useState('');
     const [subjects, setSubjects] = useState([]);
 
-    let auth = initialize({history});
+    let auth = initialize(history);
 
     useEffect(() =>{
         async function loadSubjects(){
