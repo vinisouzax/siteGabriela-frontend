@@ -448,7 +448,7 @@ export default function Article({ history }){
                                 <li key={pdfBD.pdf_id} 
                                 id={`pdfBD${pdfBD.pdf_id}`}
                                 value={pdfBD.pdf_id}
-                                onClick={event => deletePdf(event, pdfBD.pdf_id, pdfBD.pdf_id)}
+                                onClick={event => deletePdf(event, pdfBD.pdf_id)}
                                 >
                                     <p>{pdfBD.name}</p>
                                 </li>
