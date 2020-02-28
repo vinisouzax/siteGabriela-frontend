@@ -305,10 +305,10 @@ export default function Article({ history }){
         }  
     }
 
-    async function deletePdf(event, id){
+    async function deletePdf(event, id, name){
         let auth = initialize(history);
 
-        let response = await api.delete(`/pdfs/${id}`, 
+        let response = await api.delete(`/pdfs/${id}`, {name},
         {headers: { authorization: auth[0].authorization }});
 
         response = response.data;
@@ -448,7 +448,7 @@ export default function Article({ history }){
                                 <li key={pdfBD.pdf_id} 
                                 id={`pdfBD${pdfBD.pdf_id}`}
                                 value={pdfBD.pdf_id}
-                                onClick={event => deletePdf(event, pdfBD.pdf_id)}
+                                onClick={event => deletePdf(event, pdfBD.pdf_id, pdfBD.name)}
                                 >
                                     <p>{pdfBD.name}</p>
                                 </li>
