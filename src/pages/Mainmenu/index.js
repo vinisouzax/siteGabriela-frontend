@@ -47,6 +47,7 @@ export default function Mainmenu(){
                             <a className="dropdown-item" href="./Subject">Disciplinas</a>
                             <a className="dropdown-item" href="./ContentSubject">Conteúdos Disciplinas</a>
                             <a className="dropdown-item" href="./Article">Artigos</a>
+                            <a className="dropdown-item" href="./User">Usuários</a>
                         </div>
                     </li> : ''
                     }

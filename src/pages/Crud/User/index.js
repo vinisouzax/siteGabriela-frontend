@@ -8,9 +8,10 @@ import {initialize} from '../../../Util';
 
 export default function User({ history }){
     const [name, setName] = useState('');
-    const [name, setEmail] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [cPassword, setCPassword] = useState('');
+    const [permission, setPermission] = useState('');
     const [user_id, setUserId] = useState('');
     const [users, setUsers] = useState([]);
     const [show, setShow] = useState(false);
@@ -21,14 +22,18 @@ export default function User({ history }){
     
     const handleClose = () => { 
         setShow(false); 
-        setSubjectId(''); 
+        setUserId(''); 
         setName('');
+        setEmail('');
+        setPassword('');
+        setCPassword('');
+        setPermission('');
     };
 
     useEffect((history) =>{
         document.getElementById("loader").style.display = "block";
         
-        let auth = initialize({history});
+        let auth = initialize(history);
 
         async function edit(event, id) {
             event.preventDefault();
@@ -103,7 +108,8 @@ export default function User({ history }){
 
         async function loadUsers(){
 
-            let response = await api.get('/users');
+            let response = await api.get('/users', 
+            {headers: { authorization: auth[0].authorization }});
 
             response = response.data;
 
@@ -112,6 +118,8 @@ export default function User({ history }){
                 for(let i = 0; i < response.result.length; i++){
                     data.push({
                         name: response.result[i].name,
+                        email: response.result[i].email,
+                        permission: response.result[i].permission,
                         active: (response.result[i].active) ? 'Ativo' : 'Inativo',
                         editar: returnEditHtml(response.result[i].user_id),
                         status: returnDeleteHtml(response.result[i].user_id)
@@ -168,11 +176,11 @@ export default function User({ history }){
 
         document.getElementById("btn_submit").disabled = true;
 
-        let auth = initialize({history});
-        
+        let auth = initialize(history);
+
         if(password === cPassword){
             if(!user_id){
-                let response = await api.post('/users', {name, email, password, permission: 2});
+                let response = await api.post('/users', {name, email, password, permission});
                 response = response.data;
                 
                 if(response.result.length > 0){
@@ -183,8 +191,8 @@ export default function User({ history }){
                     document.getElementById("message").innerHTML = "Não foi possível cadastrar!";
                 }
             }else{
-                let response = await api.put(`/users/${user_id}`, {name, email, password, permission}, 
-                {headers: {authorization: auth}});
+                let response = await api.put(`/users/${user_id}`, {name, email, password, permission},  
+                {headers: { authorization: auth[0].authorization }});
 
                 response = response.data;
 
@@ -237,6 +245,52 @@ export default function User({ history }){
                             value={name}
                             onChange={event => setName(event.target.value)}/>
                             <label htmlFor="inputName"> Nome*</label>
+                        </div>
+
+                        <div className="form-label-group">
+                            <input type="email" 
+                            id="inputEmail" 
+                            className="form-control" 
+                            placeholder="Email" required
+                            value={email}
+                            onChange={event => setEmail(event.target.value)}/>
+                            <label htmlFor="inputEmail"> Email*</label>
+                        </div>
+
+                        <div className="form-label-group">
+                            <input type="password" 
+                            id="inputPassword" 
+                            className="form-control" 
+                            minLength='6'
+                            placeholder="Senha" required
+                            value={password}
+                            onChange={event => setPassword(event.target.value)}/>
+                            <label htmlFor="inputPassword"> Senha*</label>
+                        </div>
+
+                                                
+                        <div className="form-label-group">
+                            <input type="password" 
+                            id="inputConfirmPassword" 
+                            className="form-control" 
+                            placeholder="Confirmar senha" required
+                            value={cPassword}
+                            onChange={event => setCPassword(event.target.value)}/>
+                            <label htmlFor="inputConfirmPassword"> Confirmação de Senha*</label>
+                        </div>
+
+                        <div className="form-label-group margin">
+                            <select type="text" 
+                            id="selectPermission" 
+                            className="form-control selectCircle" required
+                            value={permission}
+                            onChange={event => setPermission(event.target.value)}>
+                            <option value=''>
+                                Selecione a permissão
+                            </option>
+                            <option value='2'> Comum</option>
+                            <option value='1'> Administrador</option>
+                            </select>
                         </div>
 
                         <div id="message" align='center'></div>
