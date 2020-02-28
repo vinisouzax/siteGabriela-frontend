@@ -337,19 +337,6 @@ export default function Article({ history }){
 
         const list = document.createElement('ol');
         preview.appendChild(list);
-
-        if(article_id !== ''){
-
-            for(const pdfBD of pdfsBD) {
-                const listItem = document.createElement('li');
-                const para = document.createElement('p');
-
-                para.textContent = `Arquivo: ${pdfBD.name}.`;
-                listItem.appendChild(para);
-
-                list.appendChild(listItem);
-            }
-        }
         
         if(files.length === 0) {
             const para = document.createElement('p');
@@ -454,7 +441,7 @@ export default function Article({ history }){
                             <input type="file" name="pdfs" id="pdfs" accept=".pdf" 
                             onChange={event => updateFiles(event.target.files)} multiple/>
                         </div>
-                        <div className="preview">
+                        <div className="previewBD">
                             <ol>
                             {
                             pdfsBD.map(pdfBD => (
@@ -468,6 +455,9 @@ export default function Article({ history }){
                             ))
                             }
                             </ol>
+                        </div>
+                        <div className="preview">
+
                         </div>
 
                         <div id="message" align='center'></div>
